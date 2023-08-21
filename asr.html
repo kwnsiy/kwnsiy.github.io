@@ -1,69 +1,56 @@
+<!-- asr.html -->
+
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音声知覚の研究評価</title>
-    <style>
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 12px #aaa;
-        }
+    <title>音声知覚に関する研究の被験者評価</title>
 
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <!-- Firebase SDKのリンク -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
 </head>
-
 <body>
+    <audio id="audioExp1" controls>
+        <source src="path_to_audio_files/audio1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <textarea id="responseText" placeholder="対話応答を入力"></textarea>
+    <textarea id="transcriptionText" placeholder="書き起こしを入力"></textarea>
 
-    <div class="container">
-        <h2>音声知覚の研究評価</h2>
-        <p>以下の指示に従ってください。</p>
-        <button id="playAudio">音声を再生する</button>
-
-        <label>音声に対する対話応答:</label>
-        <textarea id="responseInput"></textarea>
-
-        <label>音声の書き起こし:</label>
-        <textarea id="transcriptionInput"></textarea>
-
-        <button id="submitButton">送信</button>
-
-        <div id="tokenSection" style="display:none;">
-            <p>ありがとうございました。以下のアクセストークンを保存してください:</p>
-            <span id="token"></span>
-        </div>
-    </div>
+    <button id="submitButton">提出</button>
 
     <script>
-        const audio = new Audio('path_to_your_audio_file.mp3'); // 音声ファイルのパスを指定してください
+        // Firebaseの設定と初期化
+		var firebaseConfig = {
+  apiKey: "AIzaSyAg2ROx488MTbn9hrlLkVaFmYS_JO2JOM4",
+  authDomain: "asr-eval-9437f.firebaseapp.com",
+  databaseURL: "https://asr-eval-9437f-default-rtdb.firebaseio.com",
+  projectId: "asr-eval-9437f",
+  storageBucket: "asr-eval-9437f.appspot.com",
+  messagingSenderId: "665991212862",
+  appId: "1:665991212862:web:ae64b735e697bf3311866f",
+  measurementId: "G-3DQ534MRXJ"
+		};
 
-        document.getElementById('playAudio').addEventListener('click', function () {
-            audio.play();
-        });
+        firebase.initializeApp(firebaseConfig);
 
-        document.getElementById('submitButton').addEventListener('click', function () {
-            // ここでサーバーへのデータ送信などの処理を追加することができます
-            // 例: fetch APIを使用してサーバにデータをPOSTする
+        var db = firebase.database();
 
-            // アクセストークンの発行 (ここでは簡単のためランダムな文字列を生成しています)
-            const generatedToken = Math.random().toString(36).substring(2, 10);
-            document.getElementById('token').textContent = generatedToken;
+        document.getElementById("submitButton").addEventListener("click", function() {
+            let response = document.getElementById("responseText").value;
+            let transcription = document.getElementById("transcriptionText").value;
 
-            // アクセストークンセクションを表示
-            document.getElementById('tokenSection').style.display = 'block';
+            // 例: exp1のデータを保存する場合
+            db.ref('experiments/exp1').set({
+                response: response,
+                transcription: transcription
+            });
+
+            alert("送信しました。ご協力ありがとうございました。");
         });
     </script>
-
 </body>
-
 </html>
