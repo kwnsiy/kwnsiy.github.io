@@ -4,28 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 1</title>
+    <title>音声知覚の研究評価</title>
 
     <!-- Firebase SDKのリンク -->
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        textarea, input, button {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
+
+<h1>音声知覚の研究評価</h1>
+<p>この研究の目的は、雑音交じりの人間の発話を聞いたときの書き起こしを人間とASRモデルの間で比較することです。</p>
+<h2>インストラクション</h2>
+<p>以下の音声を一度だけ聞き、それに対する対話応答を考えてください。音声を再生した後、あなたが聞いた内容を覚えている範囲で書き起こしてください。</p>
+<p><strong>注意：</strong> 音声は一度しか聞けません。聞きながらメモをとるなどの行為は禁止です。</p>
 
 <audio id="audioExp1" controls>
     <source src="path_to_audio_files/audio1.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 
+<h2>対話応答</h2>
 <textarea id="responseText" placeholder="対話応答を入力"></textarea>
+
+<h2>音声の書き起こし</h2>
 <textarea id="transcriptionText" placeholder="書き起こしを入力"></textarea>
 
 <button id="submitButton">提出</button>
 
-<!-- トークン表示とコピーのためのセクション -->
+<h2>確認トークン</h2>
+<p>提出が完了したら、以下の確認トークンをコピーしてください。これは作業の完了を証明するためのものです。</p>
 <input type="text" id="tokenText" readonly>
 <button id="copyTokenButton">トークンをコピー</button>
+
 
 <script>
     // Firebaseの設定と初期化
