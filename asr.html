@@ -1,29 +1,30 @@
-<!-- asr.html -->
-
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音声知覚に関する研究の被験者評価</title>
+    <title>Experiment 1</title>
 
     <!-- Firebase SDKのリンク -->
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
 </head>
+
 <body>
-    <audio id="audioExp1" controls>
-        <source src="path_to_audio_files/audio1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <textarea id="responseText" placeholder="対話応答を入力"></textarea>
-    <textarea id="transcriptionText" placeholder="書き起こしを入力"></textarea>
 
-    <button id="submitButton">提出</button>
+<audio id="audioExp1" controls>
+    <source src="path_to_audio_files/audio1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
-    <script>
-        // Firebaseの設定と初期化
+<textarea id="responseText" placeholder="対話応答を入力"></textarea>
+<textarea id="transcriptionText" placeholder="書き起こしを入力"></textarea>
+
+<button id="submitButton">提出</button>
+
+<script>
+    // Firebaseの設定と初期化
 		var firebaseConfig = {
   apiKey: "AIzaSyAg2ROx488MTbn9hrlLkVaFmYS_JO2JOM4",
   authDomain: "asr-eval-9437f.firebaseapp.com",
@@ -34,23 +35,57 @@
   appId: "1:665991212862:web:ae64b735e697bf3311866f",
   measurementId: "G-3DQ534MRXJ"
 		};
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.database();
 
-        firebase.initializeApp(firebaseConfig);
+    document.getElementById("submitButton").addEventListener("click", function() {
+        if (!isInputValid()) {
+            alert("全ての項目を入力してください。");
+            return;
+        }
 
-        var db = firebase.database();
+        if (!confirmSubmission()) {
+            return;
+        }
 
-        document.getElementById("submitButton").addEventListener("click", function() {
-            let response = document.getElementById("responseText").value;
-            let transcription = document.getElementById("transcriptionText").value;
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+        let token = generateToken();
 
-            // 例: exp1のデータを保存する場合
-            db.ref('experiments/exp1').set({
-                response: response,
-                transcription: transcription
-            });
+        alert(`確認トークン: ${token}\nこのトークンを保存してください。`);
 
-            alert("送信しました。ご協力ありがとうございました。");
+        db.ref('experiments/exp1').set({
+            response: response,
+            transcription: transcription,
+            token: token
         });
-    </script>
+    });
+
+    function isInputValid() {
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+
+        return response.trim() !== "" && transcription.trim() !== "";
+    }
+
+    function confirmSubmission() {
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+
+        return window.confirm(`対話応答: ${response}\n書き起こし: ${transcription}\n\nこの内容で提出してよろしいですか？`);
+    }
+
+    function generateToken() {
+        const length = 8;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+</script>
+
 </body>
+
 </html>
