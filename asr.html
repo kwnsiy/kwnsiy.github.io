@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音声知覚の研究評価</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 12px #aaa;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>音声知覚の研究評価</h2>
+        <p>以下の指示に従ってください。</p>
+        <button id="playAudio">音声を再生する</button>
+
+        <label>音声に対する対話応答:</label>
+        <textarea id="responseInput"></textarea>
+
+        <label>音声の書き起こし:</label>
+        <textarea id="transcriptionInput"></textarea>
+
+        <button id="submitButton">送信</button>
+
+        <div id="tokenSection" style="display:none;">
+            <p>ありがとうございました。以下のアクセストークンを保存してください:</p>
+            <span id="token"></span>
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio('path_to_your_audio_file.mp3'); // 音声ファイルのパスを指定してください
+
+        document.getElementById('playAudio').addEventListener('click', function () {
+            audio.play();
+        });
+
+        document.getElementById('submitButton').addEventListener('click', function () {
+            // ここでサーバーへのデータ送信などの処理を追加することができます
+            // 例: fetch APIを使用してサーバにデータをPOSTする
+
+            // アクセストークンの発行 (ここでは簡単のためランダムな文字列を生成しています)
+            const generatedToken = Math.random().toString(36).substring(2, 10);
+            document.getElementById('token').textContent = generatedToken;
+
+            // アクセストークンセクションを表示
+            document.getElementById('tokenSection').style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>
