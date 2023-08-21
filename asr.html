@@ -25,6 +25,15 @@
             width: 100%;
             margin-bottom: 20px;
         }
+
+.audio-container {
+    display: flex;
+    align-items: center;
+}
+
+.play-count-container {
+    margin-left: 20px;
+}
     </style>
 </head>
 
@@ -51,10 +60,16 @@
 <h2>作業</h2>
 
 <h2>人間の音声（「あなた」に対する話しかけ）</h2>
+
+<div class="audio-container">
 <audio id="audioEval" controls>
     <source src="eval.wav" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
+    <div class="play-count-container">
+        再生回数: <span id="playCount">0</span> 回
+    </div>
+</div>
 
 <h2>それに対する「あなた」の応答</h2>
 <textarea id="responseText" placeholder="あなたの応答を入力"></textarea>
@@ -145,6 +160,32 @@ db.ref('experiments/test').set({
         document.execCommand("copy");
         alert("トークンをコピーしました");
     });
+
+// 既存のコードの下に追加
+document.getElementById("audioEval").addEventListener("ended", function() {
+    var playCountRef = db.ref('experiments/test/playCount');
+    
+    playCountRef.transaction(function(playCount) {
+        return (playCount || 0) + 1;
+    }, function(error, committed, snapshot) {
+        if (error) {
+            console.log('Transaction failed abnormally!', error);
+        } else if (!committed) {
+            console.log('We aborted the transaction (because of another one?)');
+        } else {
+            document.getElementById("playCount").textContent = snapshot.val();
+        }
+    });
+});
+
+// ページの読み込み時に、現在の再生回数を表示するコード
+document.addEventListener("DOMContentLoaded", function() {
+    var playCountRef = db.ref('experiments/test/playCount');
+    
+    playCountRef.on("value", function(snapshot) {
+        document.getElementById("playCount").textContent = snapshot.val() || 0;
+    });
+});
 
 </script>
 </body>
