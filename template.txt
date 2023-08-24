@@ -53,7 +53,7 @@
 <h2>確認用音声</h2>
 <p>「あらゆる現実をすべて自分の方へねじ曲げたのだ」 という音声が問題なく再生されることを確認したうえで作業を開始してください。</p>
 <audio id="audioTest" controls>
-    <source src="../../../test.wav" type="audio/mpeg">
+    <source src="../../../../test.wav" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 
@@ -163,7 +163,7 @@ db.ref("SAMPLE_SPEECH_DB_ID").set({
 
 // 既存のコードの下に追加
 document.getElementById("audioEval").addEventListener("ended", function() {
-    var playCountRef = db.ref('experiments/test/playCount');
+    var playCountRef = db.ref('SAMPLE_SPEECH_DB_ID/playCount');
     
     playCountRef.transaction(function(playCount) {
         return (playCount || 0) + 1;
@@ -180,7 +180,7 @@ document.getElementById("audioEval").addEventListener("ended", function() {
 
 // ページの読み込み時に、現在の再生回数を表示するコード
 document.addEventListener("DOMContentLoaded", function() {
-    var playCountRef = db.ref('experiments/test/playCount');
+    var playCountRef = db.ref('SAMPLE_SPEECH_DB_ID/playCount');
     
     playCountRef.on("value", function(snapshot) {
         document.getElementById("playCount").textContent = snapshot.val() || 0;
