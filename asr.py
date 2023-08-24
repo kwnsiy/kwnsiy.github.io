@@ -56,8 +56,7 @@ merged = pd.merge(dataset, vfd, left_on=['image', 'original_transcript'], right_
 
 def custom_join(group):
     # NaNを除外して結合
-    return '||'.join([str(x) for x in group if pd.notna(x)])
-
+    return '||'.join([str(x) for x in group if x!="nan"])
 
 # 同じ 'image' と 'original_transcript' を持つ行の 'verbal_response' を結合
 merged_grouped = merged.groupby(['image', 'original_transcript'])['verbal_response'].apply(custom_join).reset_index()
