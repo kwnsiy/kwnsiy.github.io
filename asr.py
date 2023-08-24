@@ -47,7 +47,7 @@ merged = pd.merge(dataset, vfd, left_on=['image', 'original_transcript'], right_
 merged_grouped = merged.groupby(['image', 'original_transcript'])['verbal_response'].apply('||'.join).reset_index()
 
 # 結合したデータフレームを 'dataset' とマージして、新しい 'response' カラムを作成
-final_merged = pd.merge(dataset, merged_grouped, on=['image', 'original_transcript'], how='inner')
+final_merged = pd.merge(dataset, merged_grouped, on=['image', 'original_transcript'], how='outer')
 final_merged.rename(columns={'verbal_response': 'response'}, inplace=True)
 
 
