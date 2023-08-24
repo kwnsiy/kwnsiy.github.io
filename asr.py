@@ -37,7 +37,6 @@ sampled_df = df.sample(n=500, replace=False, random_state=42)
 # 新しいtsvファイルとして保存
 sampled_df.to_csv("dataset.tsv", sep="\t", index=True)
 
-
 dataset = pd.read_csv('dataset.tsv', sep='\t')
 vfd = pd.read_csv('vfd.tsv', sep='\t').dropna()
 
@@ -58,6 +57,7 @@ pinmics_hash = []
 arrays_hash  = []
 
 import hashlib
+import shutil 
 
 for x,y,z, v in zip(final_merged["session"], final_merged["image"], final_merged["speaker"], final_merged["filename"]): 
   pinmic = "splitted_speech/pinmic/%s/%s" % (x, v)
@@ -68,24 +68,35 @@ for x,y,z, v in zip(final_merged["session"], final_merged["image"], final_merged
 
   if not(os.path.isfile(pinmic) and os.path.isfile(array)):
     print (pinmic, array) 
+
+  gaze_path = None   
+  if os.path.isfile("/mnt/home/shun-i/datasets/gazefollow/train/%s" % y):
+   shutil.copyfile("/mnt/home/shun-i/datasets/gazefollow/train/%s" % y, "gaze_image/" + y.split("/")[-1])
+   gaze_path = "gaze_image/" + y.split("/")[-1]
+
+  else:  
+   shutil.copyfile("/mnt/home/shun-i/datasets/gazefollow/test/%s" % y, "gaze_image/" + y.split("/")[-1])
+   gaze_path = "gaze_image/" + y.split("/")[-1]
   
   template = open("template.txt").read()
   with open(pinmic.replace(".wav", ".html"), "w") as f: 
     template = template.replace("INPUT_SPEECH_FILE_PATH", v)
     template = template.replace("SAMPLE_SPEECH_DB_ID", "experiments/"+pinmic_hash)
+    template = template.replace("GAZE_IMAGE_PATH", gaze_path)
     f.write(template)
 
   template = open("template.txt").read()
   with open(array.replace(".wav", ".html"), "w") as f: 
     template = template.replace("INPUT_SPEECH_FILE_PATH", v)
     template = template.replace("SAMPLE_SPEECH_DB_ID", "experiments/"+array_hash)
+    template = template.replace("GAZE_IMAGE_PATH", gaze_path)
     f.write(template)
 
   pinmics.append("https://kwnsiy.github.io/" + pinmic.replace(".wav", ".html"))
   arrays.append("https://kwnsiy.github.io/" + array.replace(".wav", ".html"))
   pinmics_hash.append(pinmic_hash)
   arrays_hash.append(array_hash)
-  
+
 # 新しいTSVファイルとして保存
 final_merged["pinmic"]       = pinmics
 final_merged["pinmic_hash"]  = pinmics_hash
