@@ -53,7 +53,7 @@
 <h2>確認用音声</h2>
 <p>「あらゆる現実をすべて自分の方へねじ曲げたのだ」 という音声が問題なく再生されることを確認したうえで作業を開始してください。</p>
 <audio id="audioTest" controls>
-    <source src="test.wav" type="audio/mpeg">
+    <source src="../../../test.wav" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 
