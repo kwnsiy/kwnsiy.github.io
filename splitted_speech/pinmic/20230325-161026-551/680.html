@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音声知覚の研究評価</title>
+
+    <!-- Firebase SDKのリンク -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        textarea, input, button {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+.audio-container {
+    display: flex;
+    align-items: center;
+}
+
+.play-count-container {
+    margin-left: 20px;
+}
+    </style>
+</head>
+
+<body>
+
+<h1>音声知覚の研究評価</h1>
+
+<h2>作業内容の説明</h2>
+
+<p>人間の音声を<strong>一度だけ</strong>聞き、それに対する「あなた」の応答を考えてテキストボックスに入力してください。ここで、人間の音声は対話相手である「あなた」に対する話しかけであり、あなたの応答は可能な限り、互いに対話が継続しやすい意味のある応答にする必要があります。例えば、過度に一般的な応答（例：そうなんですね）にすることは避けてください。ここで補助的な情報として、「あなた」が相対している人間と周囲の状況が映った画像が提示されているので応答を考える際の参考にしてください。次に、あなたが聞いた内容を覚えている範囲で書き起こしてテキストボックスに入力してください。正確に聞き取ることは作業の目的ではありませんので、聞き取れなかった場合や内容を忘れてしまった場合は、覚えている単語やフレーズを入力してください。作業が完了したら「提出ボタン」を押してください。</p>
+
+<p><strong>注意</strong>：音声は一度だけしか聞かないでください（再生回数は記録されます）。聞きながらメモをとるなどの行為も禁止です。もし、複数回音声が再生されているような場合が確認された場合、作業が非承認になる可能性がありますので、音声の再生環境や周囲の状況をよく確認したうえで作業を行ってください。作業を開始する前に、必ず「確認用音声」が正常に再生されることを確認してください。</p>
+
+<p><strong>作業完了の確認について（重要）</strong>：「提出ボタン」を押すとあなたの入力結果がポップアップで表示されます。問題がない場合はOKを押してください。OKを押したらページの下部に確認トークンが表示されるのでコピーしてクラウドワークスの入力フォームに確認トークンを入力してください。それを持って作業の完了とします。致命的な打ち間違い等（例：漢字の変換ミスなど）があった場合のみ、作業結果を修正し再度提出ボタンを押すことができます（極力避けてください）。ただし、提出ボタンを押すたびに古い確認トークンは無効になるため最新の確認トークンをクラウドワークスから提出するようにしてください。誤った確認トークンが入力されている場合、作業が非承認となりますのでご注意ください。確認トークンを手入力する場合、誤入力が発生する原因となりますので、「トークンをコピー」ボタンを押し、確認トークンをコピーするようにしてください。
+</p>
+
+<h2>確認用音声</h2>
+<p>「あらゆる現実をすべて自分の方へねじ曲げたのだ」 という音声が問題なく再生されることを確認したうえで作業を開始してください。</p>
+<audio id="audioTest" controls>
+    <source src="../../../../test.wav" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<h2>作業</h2>
+
+<h2>人間の音声（「あなた」に対する話しかけ）</h2>
+
+<div class="audio-container">
+<audio id="audioEval" controls>
+    <source src="680.wav" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+    <div class="play-count-container">
+        再生回数: <span id="playCount">0</span> 回
+    </div>
+</div>
+
+<h2>それに対する「あなた」の応答</h2>
+<textarea id="responseText" placeholder="あなたの応答を入力"></textarea>
+
+<h2>音声の書き起こし</h2>
+<textarea id="transcriptionText" placeholder="人間の音声の書き起こしを入力"></textarea>
+
+<button id="submitButton">提出</button>
+
+<h2>確認トークン</h2>
+<p>提出が完了したら、以下の確認トークンをコピーしてください。これは作業の完了を証明するためのものです。</p>
+<input type="text" id="tokenText" readonly>
+<button id="copyTokenButton">トークンをコピー</button>
+
+<script>
+    // Firebaseの設定と初期化
+        var firebaseConfig = {
+  apiKey: "AIzaSyAg2ROx488MTbn9hrlLkVaFmYS_JO2JOM4",
+  authDomain: "asr-eval-9437f.firebaseapp.com",
+  databaseURL: "https://asr-eval-9437f-default-rtdb.firebaseio.com",
+  projectId: "asr-eval-9437f",
+  storageBucket: "asr-eval-9437f.appspot.com",
+  messagingSenderId: "665991212862",
+  appId: "1:665991212862:web:ae64b735e697bf3311866f",
+  measurementId: "G-3DQ534MRXJ"
+        };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.database();
+
+    function isInputValid() {
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+
+        return response.trim() !== "" && transcription.trim() !== "";
+    }
+
+    function confirmSubmission() {
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+
+        return window.confirm(`対話応答: ${response}\n音声の書き起こし: ${transcription}\n\nこの内容で提出してよろしいですか？`);
+    }
+
+    function generateToken() {
+        const length = 8;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+
+    document.getElementById("submitButton").addEventListener("click", function() {
+        if (!isInputValid()) {
+            alert("全ての項目を入力してください。");
+            return;
+        }
+
+        if (!confirmSubmission()) {
+            return;
+        }
+
+        let response = document.getElementById("responseText").value;
+        let transcription = document.getElementById("transcriptionText").value;
+        let token = generateToken();
+
+        let tokenTextElement = document.getElementById("tokenText");
+        tokenTextElement.value = token;
+
+db.ref("experiments/ffd3474e994f1c5bed7b0dcd1bb0bdb2cece34399d06f84634a8d4337dea53c2").set({
+    response: response,
+    transcription: transcription,
+    token: token
+}).then(function() {
+    // 成功時の処理
+    alert("提出に成功しました！確認トークンをコピーしてクラウドワークスから確認トークンを送信してください。");
+}).catch(function(error) {
+    // エラー時の処理
+    alert("エラーが発生しました：" + error.message);
+});
+
+    });
+
+    document.getElementById("copyTokenButton").addEventListener("click", function() {
+        let tokenTextElement = document.getElementById("tokenText");
+        tokenTextElement.select();
+        document.execCommand("copy");
+        alert("トークンをコピーしました");
+    });
+
+// 既存のコードの下に追加
+document.getElementById("audioEval").addEventListener("ended", function() {
+    var playCountRef = db.ref('experiments/ffd3474e994f1c5bed7b0dcd1bb0bdb2cece34399d06f84634a8d4337dea53c2/playCount');
+    
+    playCountRef.transaction(function(playCount) {
+        return (playCount || 0) + 1;
+    }, function(error, committed, snapshot) {
+        if (error) {
+            console.log('Transaction failed abnormally!', error);
+        } else if (!committed) {
+            console.log('We aborted the transaction (because of another one?)');
+        } else {
+            document.getElementById("playCount").textContent = snapshot.val();
+        }
+    });
+});
+
+// ページの読み込み時に、現在の再生回数を表示するコード
+document.addEventListener("DOMContentLoaded", function() {
+    var playCountRef = db.ref('experiments/ffd3474e994f1c5bed7b0dcd1bb0bdb2cece34399d06f84634a8d4337dea53c2/playCount');
+    
+    playCountRef.on("value", function(snapshot) {
+        document.getElementById("playCount").textContent = snapshot.val() || 0;
+    });
+});
+
+</script>
+</body>
+
+</html>
