@@ -38,8 +38,9 @@ sampled_df = df.sample(n=500, replace=False, random_state=42)
 sampled_df.to_csv("dataset.tsv", sep="\t", index=True)
 
 dataset = pd.read_csv('dataset.tsv', sep='\t')
-vfd = pd.read_csv('vfd.tsv', sep='\t').dropna()
+vfd = pd.read_csv('vfd.tsv', sep='\t').astype(str)
 
+"""
 # 'image' カラムと 'image_path' カラム、および 'original_transcript' カラムと 'utterance' カラムを基に結合
 merged = pd.merge(dataset, vfd, left_on=['image', 'original_transcript'], right_on=['image_path', 'utterance'])
 
@@ -48,6 +49,22 @@ merged_grouped = merged.groupby(['image', 'original_transcript'])['verbal_respon
 
 # 結合したデータフレームを 'dataset' とマージして、新しい 'response' カラムを作成
 final_merged = pd.merge(dataset, merged_grouped, on=['image', 'original_transcript'], how='outer')
+"""
+
+# 'image' カラムと 'image_path' カラム、および 'original_transcript' カラムと 'utterance' カラムを基に結合
+merged = pd.merge(dataset, vfd, left_on=['image', 'original_transcript'], right_on=['image_path', 'utterance'])
+
+def custom_join(group):
+    # NaNを除外して結合
+    return '||'.join([str(x) for x in group if pd.notna(x)])
+
+
+# 同じ 'image' と 'original_transcript' を持つ行の 'verbal_response' を結合
+merged_grouped = merged.groupby(['image', 'original_transcript'])['verbal_response'].apply(custom_join).reset_index()
+
+# 結合したデータフレームを 'dataset' とマージして、新しい 'response' カラムを作成
+final_merged = pd.merge(dataset, merged_grouped, on=['image', 'original_transcript'], how='outer')
+
 final_merged.rename(columns={'verbal_response': 'response'}, inplace=True)
 
 
