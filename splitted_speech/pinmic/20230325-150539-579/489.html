@@ -166,7 +166,7 @@ db.ref("experiments/f913d60e072037236457da380b9f2a77e0ee36043e0fa5aab4e4e92831b7
 
 // 既存のコードの下に追加
 document.getElementById("audioEval").addEventListener("ended", function() {
-    var playCountRef = db.ref('experiments/f913d60e072037236457da380b9f2a77e0ee36043e0fa5aab4e4e92831b78766/playCount');
+    var playCountRef = db.ref('experiments/f913d60e072037236457da380b9f2a77e0ee36043e0fa5aab4e4e92831b78766_count/playCount');
     
     playCountRef.transaction(function(playCount) {
         return (playCount || 0) + 1;
@@ -183,7 +183,7 @@ document.getElementById("audioEval").addEventListener("ended", function() {
 
 // ページの読み込み時に、現在の再生回数を表示するコード
 document.addEventListener("DOMContentLoaded", function() {
-    var playCountRef = db.ref('experiments/f913d60e072037236457da380b9f2a77e0ee36043e0fa5aab4e4e92831b78766/playCount');
+    var playCountRef = db.ref('experiments/f913d60e072037236457da380b9f2a77e0ee36043e0fa5aab4e4e92831b78766_count/playCount');
     
     playCountRef.on("value", function(snapshot) {
         document.getElementById("playCount").textContent = snapshot.val() || 0;
