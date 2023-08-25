@@ -94,14 +94,14 @@ for x,y,z, v in zip(final_merged["session"], final_merged["image"], final_merged
    shutil.copyfile("/mnt/home/shun-i/datasets/gazefollow/test/%s" % y, "gaze_image/" + y.split("/")[-1])
    gaze_path = "gaze_image/" + y.split("/")[-1]
   
-  template = open("template.txt").read()
+  template = open("template2.txt").read()
   with open(pinmic.replace(".wav", ".html"), "w") as f: 
     template = template.replace("INPUT_SPEECH_FILE_PATH", v)
     template = template.replace("SAMPLE_SPEECH_DB_ID", "experiments/"+pinmic_hash)
     template = template.replace("GAZE_IMAGE_PATH", gaze_path)
     f.write(template)
 
-  template = open("template.txt").read()
+  template = open("template2.txt").read()
   with open(array.replace(".wav", ".html"), "w") as f: 
     template = template.replace("INPUT_SPEECH_FILE_PATH", v)
     template = template.replace("SAMPLE_SPEECH_DB_ID", "experiments/"+array_hash)

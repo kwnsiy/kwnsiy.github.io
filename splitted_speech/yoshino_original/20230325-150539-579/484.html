@@ -43,7 +43,7 @@
 
 <h2>作業内容の説明</h2>
 
-<p>人間の音声を<strong>一度だけ</strong>聞き、それに対する「あなた」の応答を考えてテキストボックスに入力してください。ここで、人間の音声は対話相手である「あなた」に対する話しかけであり、あなたの応答は可能な限り、互いに対話が継続しやすい意味のある応答にする必要があります。例えば、過度に一般的な応答（例：そうなんですね）にすることは避けてください。ここで補助的な情報として、「あなた」が相対している人間と周囲の状況が映った画像が提示されているので応答を考える際の参考にしてください。次に、あなたが聞いた内容を覚えている範囲で書き起こしてテキストボックスに入力してください。正確に聞き取ることは作業の目的ではありませんので、聞き取れなかった場合や内容を忘れてしまった場合は、覚えている単語やフレーズを入力してください。作業が完了したら「提出ボタン」を押してください。</p>
+<p>人間の音声を<strong>一度だけ</strong>聞き、それに対する「あなた」の応答を考えてテキストボックスに入力してください。ここで、人間の音声は対話相手である「あなた」に対する話しかけであり、あなたの応答は可能な限り、互いに対話が継続しやすい意味のある応答にする必要があります。例えば、過度に一般的な応答（例：そうなんですね）にすることは避けてください。ここで補助的な情報として、「あなた」が相対している人間と周囲の状況が映った画像が提示されているので応答を考える際の参考にしてください。作業が完了したら「提出ボタン」を押してください。</p>
 
 <p><strong>注意</strong>：音声は一度だけしか聞かないでください（再生回数は記録されます）。聞きながらメモをとるなどの行為も禁止です。もし、複数回音声が再生されているような場合が確認された場合、作業が非承認になる可能性がありますので、音声の再生環境や周囲の状況をよく確認したうえで作業を行ってください。作業を開始する前に、必ず「確認用音声」が正常に再生されることを確認してください。</p>
 
@@ -77,9 +77,6 @@
 <h2>それに対する「あなた」の応答</h2>
 <textarea id="responseText" placeholder="あなたの応答を入力"></textarea>
 
-<h2>音声の書き起こし</h2>
-<textarea id="transcriptionText" placeholder="人間の音声の書き起こしを入力"></textarea>
-
 <button id="submitButton">提出</button>
 
 <h2>確認トークン</h2>
@@ -104,16 +101,13 @@
 
     function isInputValid() {
         let response = document.getElementById("responseText").value;
-        let transcription = document.getElementById("transcriptionText").value;
 
-        return response.trim() !== "" && transcription.trim() !== "";
+        return response.trim() !== "";
     }
 
     function confirmSubmission() {
         let response = document.getElementById("responseText").value;
-        let transcription = document.getElementById("transcriptionText").value;
-
-        return window.confirm(`対話応答: ${response}\n音声の書き起こし: ${transcription}\n\nこの内容で提出してよろしいですか？`);
+        return window.confirm(`対話応答: ${response}\n\nこの内容で提出してよろしいですか？`);
     }
 
     function generateToken() {
@@ -137,7 +131,6 @@
         }
 
         let response = document.getElementById("responseText").value;
-        let transcription = document.getElementById("transcriptionText").value;
         let token = generateToken();
 
         let tokenTextElement = document.getElementById("tokenText");
@@ -145,7 +138,6 @@
 
 db.ref("experiments/8b33ea057aab969f89d1d73ffdb1cb33d0d0a0208fcb0376d0e2a17ec6f4a85a").set({
     response: response,
-    transcription: transcription,
     token: token
 }).then(function() {
     // 成功時の処理
