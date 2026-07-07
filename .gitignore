@@ -1,0 +1,38 @@
+# ============================================================
+# 注意: 以下のファイル/ディレクトリは論文実験用の公開データであり、
+# 既に git 追跡済み・GitHub Pages で公開中のため削除・変更禁止。
+# (詳細は CLAUDE.md を参照)
+#   - asr.html, asr.py
+#   - eval.wav, test.wav
+#   - dataset.tsv, experiment.tsv, vfd.tsv
+#   - template.html, template.txt, template2.txt
+#   - splitted_speech/, gaze_image/
+# ============================================================
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Jekyll build artifacts (GitHub Pages)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
