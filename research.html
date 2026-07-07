@@ -1,52 +1,83 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-97272111-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-97272111-2');
-</script>
-
 <meta charset="utf-8">
-<title>研究内容</title>
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-<![endif]-->
-<link href="css/style.css" rel="stylesheet" media="all">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研究内容 | 河野 誠也 (Seiya Kawano)</title>
+<meta name="description" content="河野誠也の研究内容：自然言語処理、音声対話システム、自然言語生成・理解、特許・知財情報処理、マルチモーダル対話。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="css/modern.css" rel="stylesheet" media="all">
 </head>
 <body>
-<div id="container">
-  <header id="header">
-    <h1>Seiya Kawano@RIKEN</h1>
-  </header>
-  <div id="nav_frame">
-    <nav>
-      <ul id="nav1">
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="index.html">河野 誠也 <small>Seiya Kawano</small></a>
+    <nav class="site-nav">
+      <ul>
         <li><a href="index.html">ホーム</a></li>
-        <li><a href="research.html">研究内容</a></li>
+        <li><a href="research.html" class="active">研究内容</a></li>
         <li><a href="publications.html">研究業績</a></li>
         <li><a href="access.html">連絡先</a></li>
-        <li><a href="index-e.html">ENGLISH</a></li>
+        <li><a href="research-e.html" class="lang">EN</a></li>
       </ul>
     </nav>
   </div>
-  <div id="main">
+</header>
+
+<div class="page-title">
+  <div class="inner">
     <h1>研究内容</h1>
-    <div id="main2">
-      <h2 class="mt0">キーワード</h2>
-      <h3> Natural Language Processing, Discourse & Dialogue, Language Generation, Language Understanding, Patent Information Processing</h3>
-    </div>
+    <p>Natural Language Processing / Dialogue Systems / Patent Informatics</p>
   </div>
 </div>
-<footer>
-  <div id="footer_color">
-    <div id="copy">Copyright &copy; Seiya KAWANO, All rights reserved.</div>
+
+<main>
+
+  <section class="card">
+    <h2>キーワード</h2>
+    <div class="chips" style="margin-top:0;">
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">自然言語処理</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">音声対話システム</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">自然言語生成・理解</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">談話・対話構造解析</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">特許・知財情報処理</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">マルチモーダル対話</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">ヒューマンロボットインタラクション</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>研究テーマ</h2>
+
+    <h3>ユーザに適応的な音声対話システム・対話ロボット</h3>
+    <p>人と自然に対話できるシステムの実現を目指し、対話文脈・対話構造を考慮した応答生成、エントレインメント（同調）やスタイルシフトのモデル化、ラポール（親密性）を構築する対話戦略、大規模言語モデルを活用した対話ロボットの行動制御などに取り組んでいます。</p>
+
+    <h3>大規模言語モデルの理解・推論能力の分析と強化</h3>
+    <p>語用論理論に基づいた大規模言語モデルの含意理解・推論能力の分析と強化、AIフィードバックを用いた対話システムの学習など、大規模言語モデルを核とした言語理解・生成技術の研究を進めています。</p>
+
+    <h3>特許・知的財産情報処理</h3>
+    <p>特許文書の談話構造解析、特許請求の範囲の自動書き換え生成、先行技術調査の支援、多言語・多法域特許クレーム起案データセットの構築など、知的財産実務者の意思決定を支援する自然言語処理の研究に取り組んでいます。</p>
+
+    <h3>マルチモーダル対話・実世界インタラクション</h3>
+    <p>視線・表情・身体動作などの非言語情報を統合したマルチモーダル対話コーパスの構築（イベントカメラの活用を含む）や、実世界での参照解析・視覚的質問応答など、実環境で人を支援する対話知能の研究を行っています。</p>
+  </section>
+
+  <section class="card">
+    <h2>共同研究・研究相談</h2>
+    <p>自然言語処理・対話システム・知財情報処理に関する共同研究や研究相談を歓迎します。お気軽に<a href="access.html">ご連絡</a>ください。</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>Copyright &copy; Seiya KAWANO, All rights reserved.</div>
+    <div><a href="research-e.html">English</a></div>
   </div>
 </footer>
+
 </body>
 </html>

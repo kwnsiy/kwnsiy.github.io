@@ -1,54 +1,83 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-97272111-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-97272111-2');
-</script>
-
-
 <meta charset="utf-8">
-<title>RESEARCH | Seiya Kawano@RIKEN</title>
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-<![endif]-->
-<link href="css/style.css" rel="stylesheet" media="all">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research | Seiya Kawano</title>
+<meta name="description" content="Research of Seiya Kawano: natural language processing, spoken dialogue systems, language generation and understanding, patent informatics, multimodal dialogue.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="css/modern.css" rel="stylesheet" media="all">
 </head>
 <body>
-<div id="container">
-  <header id="header">
-    <h1>Seiya Kawano@RIKEN</h1>
-  </header>
-  <div id="nav_frame">
-    <nav>
-      <ul id="nav1">
-        <li><a href="index-e.html">HOME</a></li>
-        <li><a href="research-e.html">RESEARCH</a></li>
-        <li><a href="publications-e.html">PUBLICATIONS</a></li>
-        <li><a href="access-e.html">CONTACT</a></li>
-        <li><a href="index.html">JAPANESE</a></li>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="index-e.html">Seiya Kawano <small>河野 誠也</small></a>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="index-e.html">Home</a></li>
+        <li><a href="research-e.html" class="active">Research</a></li>
+        <li><a href="publications-e.html">Publications</a></li>
+        <li><a href="access-e.html">Contact</a></li>
+        <li><a href="research.html" class="lang">日本語</a></li>
       </ul>
     </nav>
   </div>
-  <div id="main">
-    <h1>RESEARCH</h1>
-    <div id="main2">
-      <h2 class="mt0">Keywords</h2>
-      <h3> Natural Language Processing, Discourse & Dialogue, Language Generation, Language Understanding, Patent Information Processing</h3>
-    </div>
+</header>
+
+<div class="page-title">
+  <div class="inner">
+    <h1>Research</h1>
+    <p>Natural Language Processing / Dialogue Systems / Patent Informatics</p>
   </div>
 </div>
-<footer>
-  <div id="footer_color">
-    <div id="copy">Copyright &copy; Seiya KAWANO, All rights reserved.</div>
+
+<main>
+
+  <section class="card">
+    <h2>Keywords</h2>
+    <div class="chips" style="margin-top:0;">
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Natural Language Processing</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Spoken Dialogue Systems</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Language Generation &amp; Understanding</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Discourse &amp; Dialogue Structure</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Patent Informatics</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Multimodal Dialogue</span>
+      <span class="chip" style="border-color:var(--line); background:#f2f5fa; color:var(--brand);">Human-Robot Interaction</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Research Topics</h2>
+
+    <h3>User-Adaptive Spoken Dialogue Systems and Dialogue Robots</h3>
+    <p>Toward systems that can converse naturally with humans, I work on response generation considering dialogue context and structure, modeling of entrainment and style-shifting, rapport-building dialogue strategies, and LLM-driven motion control for dialogue robots.</p>
+
+    <h3>Analyzing and Enhancing the Understanding and Reasoning of LLMs</h3>
+    <p>I study language understanding and generation centered on large language models, including enhancing the understanding of implied meanings in LLMs based on pragmatic theories, and training dialogue systems with AI feedback.</p>
+
+    <h3>Patent and Intellectual Property Informatics</h3>
+    <p>I develop natural language processing that supports the decision-making of intellectual property practitioners: discourse structure analysis of patent documents, automated patent claim refinement, prior-art search support, and cross-lingual multi-jurisdiction datasets for patent drafting.</p>
+
+    <h3>Multimodal Dialogue and Real-World Interaction</h3>
+    <p>I build multimodal dialogue corpora integrating nonverbal signals such as gaze, facial expressions, and body motion (including event cameras), and study real-world reference resolution and visual question answering for dialogue intelligence that assists people in real environments.</p>
+  </section>
+
+  <section class="card">
+    <h2>Collaboration</h2>
+    <p>I welcome research collaborations and inquiries on natural language processing, dialogue systems, and patent informatics. Please feel free to <a href="access-e.html">contact me</a>.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>Copyright &copy; Seiya KAWANO, All rights reserved.</div>
+    <div><a href="research.html">日本語</a></div>
   </div>
 </footer>
+
 </body>
 </html>

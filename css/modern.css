@@ -1,0 +1,354 @@
+/* ==========================================================
+   Seiya Kawano — personal academic site
+   Modern minimal stylesheet (2026 redesign)
+   ========================================================== */
+
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6675;
+  --line: #e4e8ef;
+  --brand: #14406e;
+  --brand-2: #1e5fa8;
+  --accent: #c99b2d;
+  --award: #b4231f;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(20, 35, 60, .05), 0 8px 24px rgba(20, 35, 60, .06);
+  --maxw: 960px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--brand-2); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+img { max-width: 100%; height: auto; }
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: .65rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .4rem 1rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--ink);
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.brand:hover { text-decoration: none; color: var(--brand); }
+.brand small { font-weight: 500; color: var(--muted); margin-left: .5em; font-size: .8em; }
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: .35rem .7rem;
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: .92rem;
+  font-weight: 500;
+}
+.site-nav a:hover { background: #eef2f8; text-decoration: none; }
+.site-nav a.active { color: var(--brand); font-weight: 700; }
+.site-nav a.lang {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  margin-left: .35rem;
+  font-size: .82rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background:
+    radial-gradient(1100px 420px at 85% -10%, rgba(201, 155, 45, .18), transparent 60%),
+    linear-gradient(135deg, #12325a 0%, #14406e 55%, #1e5fa8 100%);
+  color: #fff;
+  padding: 3.6rem 1.25rem 3.2rem;
+}
+
+.hero .inner { max-width: var(--maxw); margin: 0 auto; }
+
+.hero .kicker {
+  margin: 0 0 .6rem;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #bcd3ef;
+}
+
+.hero h1 {
+  margin: 0 0 .4rem;
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  line-height: 1.25;
+  letter-spacing: .02em;
+}
+.hero h1 .romaji {
+  display: block;
+  font-size: .5em;
+  font-weight: 500;
+  color: #c9dcf4;
+  letter-spacing: .06em;
+  margin-top: .3rem;
+}
+
+.hero .lead {
+  max-width: 46em;
+  margin: .9rem 0 0;
+  color: #e3edf9;
+  font-size: .98rem;
+}
+.hero .lead a { color: #ffd98a; }
+
+.chips { margin: 1.3rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  display: inline-block;
+  padding: .22rem .8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(255, 255, 255, .08);
+  color: #eaf2fc;
+  font-size: .82rem;
+}
+
+.hero .cta { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+.btn {
+  display: inline-block;
+  padding: .5rem 1.1rem;
+  border-radius: 10px;
+  font-size: .9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, .45);
+  color: #fff;
+}
+.btn:hover { background: rgba(255, 255, 255, .12); text-decoration: none; }
+.btn.primary { background: #fff; color: var(--brand); border-color: #fff; }
+.btn.primary:hover { background: #eef4fb; }
+
+/* ---------- Page title band (subpages) ---------- */
+.page-title {
+  background: linear-gradient(135deg, #12325a 0%, #1e5fa8 100%);
+  color: #fff;
+  padding: 2.2rem 1.25rem;
+}
+.page-title .inner { max-width: var(--maxw); margin: 0 auto; }
+.page-title h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: .03em; }
+.page-title p { margin: .3rem 0 0; color: #c9dcf4; font-size: .9rem; }
+
+/* ---------- Main layout ---------- */
+main { max-width: var(--maxw); margin: 0 auto; padding: 2.2rem 1.25rem 3.5rem; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.8rem;
+  margin-bottom: 1.6rem;
+}
+
+section.card > :last-child { margin-bottom: 0; }
+
+h2 {
+  font-size: 1.25rem;
+  margin: 0 0 1rem;
+  padding-left: .75rem;
+  border-left: 4px solid var(--accent);
+  line-height: 1.4;
+  letter-spacing: .02em;
+  color: var(--brand);
+}
+
+h3 {
+  font-size: 1.02rem;
+  margin: 1.6rem 0 .5rem;
+  color: var(--ink);
+}
+h3:first-of-type { margin-top: 0; }
+
+/* ---------- Timeline lists (education / experience) ---------- */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 .2rem; }
+.timeline li {
+  position: relative;
+  padding: 0 0 1rem 1.4rem;
+  border-left: 2px solid var(--line);
+}
+.timeline li:last-child { padding-bottom: .1rem; }
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: .5em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand-2);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.timeline .when {
+  display: block;
+  font-size: .8rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.timeline .what { display: block; }
+.timeline .note { display: block; font-size: .88rem; color: var(--muted); }
+
+/* ---------- News ---------- */
+.news { list-style: none; margin: 0; padding: 0; }
+.news li {
+  display: flex;
+  gap: 1rem;
+  padding: .55rem 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: baseline;
+}
+.news li:last-child { border-bottom: 0; }
+.news time {
+  flex: 0 0 6.2em;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--brand-2);
+  letter-spacing: .02em;
+}
+
+/* ---------- Publications ---------- */
+.pubs { margin: 0 0 1.2rem; padding-left: 1.4rem; }
+.pubs li { margin-bottom: .7rem; }
+.pubs li::marker { color: var(--brand-2); font-weight: 600; }
+
+.award {
+  display: inline-block;
+  color: var(--award);
+  font-weight: 700;
+  font-size: .88em;
+}
+
+.tag {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--brand);
+  background: #e8eef7;
+  border-radius: 6px;
+  padding: .05rem .5rem;
+  margin-left: .3rem;
+  vertical-align: .08em;
+  white-space: nowrap;
+}
+
+/* plain lists (awards, funds) */
+.plain { margin: 0; padding-left: 1.4rem; }
+.plain li { margin-bottom: .45rem; }
+
+/* ---------- Contact ---------- */
+.contact-mail {
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: #eef2f8;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .8rem 1.2rem;
+  display: inline-block;
+}
+
+.map-embed {
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  aspect-ratio: 4 / 3;
+  max-height: 460px;
+}
+
+/* ---------- Links list ---------- */
+.link-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: .6rem;
+}
+.link-grid a {
+  display: block;
+  padding: .6rem .9rem;
+  background: #f2f5fa;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: .9rem;
+  color: var(--ink);
+}
+.link-grid a:hover { border-color: var(--brand-2); color: var(--brand-2); text-decoration: none; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: #12233c;
+  color: #9fb3cd;
+  padding: 1.6rem 1.25rem;
+  font-size: .84rem;
+}
+.site-footer .inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.site-footer a { color: #cfe0f2; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .card { padding: 1.2rem 1.1rem; }
+  .news li { flex-direction: column; gap: 0; }
+  .news time { flex-basis: auto; }
+  .hero { padding: 2.6rem 1.1rem 2.4rem; }
+}
+
+@media print {
+  .site-header, .site-footer, .hero .cta { display: none; }
+  body { background: #fff; }
+  .card { box-shadow: none; border: 0; padding: 0; margin-bottom: 1.2rem; }
+}
